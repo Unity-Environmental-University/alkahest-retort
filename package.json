@@ -1,0 +1,22 @@
+{
+  "name": "alkahest-retort",
+  "version": "0.1.0",
+  "description": "Substrate for thermodynamic knowledge systems — graph, thermal, gas, observer frames",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./graph": "./dist/graph.js",
+    "./thermal": "./dist/thermal.js",
+    "./gas": "./dist/gas.js",
+    "./frames": "./dist/frames.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "node --experimental-strip-types --test tests/*.test.ts"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
