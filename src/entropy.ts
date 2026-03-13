@@ -25,11 +25,15 @@
  * Over-engineered codebases. Institutions that can't absorb change.
  */
 
+import type { PhaseMarker } from "./thermal.js"
+
 /** The natural threshold — 1/e ≈ 0.3679 */
 export const OPTIMAL_SURPRISE_RATIO = 1 / Math.E
 
-/** Extended phase markers including glass */
-export type ExtendedPhase = "volatile" | "fluid" | "salt" | "glass"
+/** Phase markers — glass included. Re-exported from thermal for convenience. */
+export type { PhaseMarker }
+/** @deprecated use PhaseMarker */
+export type ExtendedPhase = PhaseMarker
 
 export interface FlowState {
   /** Ratio of unpredictable to total outcomes [0, 1] */
@@ -38,8 +42,8 @@ export interface FlowState {
   reynoldsNumber: number
   /** Viscosity — resistance to flow; high viscosity risks glass on cooling */
   viscosity: number
-  /** Current extended phase */
-  phase: ExtendedPhase
+  /** Current phase */
+  phase: PhaseMarker
 }
 
 /**
@@ -175,7 +179,7 @@ export function classifyExtendedPhase(state: {
   re: number
   viscosity: number
   brittlenessRisk: number
-}): ExtendedPhase {
+}): PhaseMarker {
   const { surpriseRatio: sr, re, viscosity, brittlenessRisk: br } = state
 
   if (sr > 0.6 || re > RE_TURBULENT) return "volatile"
